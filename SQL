@@ -1,1 +1,220 @@
+CREATE DATABASE bloodbankdb;
+use bloodbankdb;
+CREATE TABLE donors (
+    donor_id   INT PRIMARY KEY,
+    donor_name VARCHAR(100),
+    age        INT,
+    gender     VARCHAR(10),
+    blood_type VARCHAR(5),
+    city       VARCHAR(50)
+);
+
+CREATE TABLE camps (
+    camp_id    INT PRIMARY KEY,
+    camp_name  VARCHAR(100),
+    location   VARCHAR(100),
+    camp_date  DATE,
+    organizer  VARCHAR(100)
+);
+
+CREATE TABLE donations (
+    donation_id   INT PRIMARY KEY,
+    donor_id      INT,
+    camp_id       INT,
+    donation_date DATE,
+    units_donated INT,
+    FOREIGN KEY (donor_id) REFERENCES donors(donor_id),
+    FOREIGN KEY (camp_id)  REFERENCES camps(camp_id)
+);
+
+CREATE TABLE blood_requests (
+    request_id      INT PRIMARY KEY,
+    hospital_name   VARCHAR(100),
+    blood_type      VARCHAR(5),
+    units_requested INT,
+    request_date    DATE,
+    status          VARCHAR(20)
+);
+
+CREATE TABLE blood_inventory (
+    inventory_id    INT PRIMARY KEY,
+    blood_type      VARCHAR(5),
+    units_available INT,
+    expiry_date     DATE,
+    last_updated    DATE
+);
+
+
+-- 1. Donors
+INSERT INTO donors VALUES
+(1,  'Rahul Sharma',   28, 'Male',   'O+',  'Indore'),
+(2,  'Priya Verma',    24, 'Female', 'A+',  'Bhopal'),
+(3,  'Amit Joshi',     35, 'Male',   'B+',  'Indore'),
+(4,  'Sneha Patel',    22, 'Female', 'AB+', 'Ujjain'),
+(5,  'Vikram Singh',   30, 'Male',   'O-',  'Indore'),
+(6,  'Neha Gupta',     27, 'Female', 'A-',  'Bhopal'),
+(7,  'Rohit Tiwari',   32, 'Male',   'B-',  'Gwalior'),
+(8,  'Anjali Rao',     26, 'Female', 'O+',  'Indore'),
+(9,  'Suresh Meena',   40, 'Male',   'A+',  'Ujjain'),
+(10, 'Kavya Nair',     23, 'Female', 'B+',  'Bhopal'),
+(11, 'Deepak Yadav',   29, 'Male',   'O+',  'Indore'),
+(12, 'Ritu Mishra',    31, 'Female', 'AB-', 'Gwalior'),
+(13, 'Arjun Pandey',   25, 'Male',   'A+',  'Indore'),
+(14, 'Pooja Dubey',    28, 'Female', 'O-',  'Bhopal'),
+(15, 'Manish Soni',    36, 'Male',   'B+',  'Ujjain'),
+(16, 'Swati Chouhan',  24, 'Female', 'A+',  'Indore'),
+(17, 'Kiran Rajput',   33, 'Male',   'O+',  'Gwalior'),
+(18, 'Divya Saxena',   27, 'Female', 'B-',  'Bhopal'),
+(19, 'Nikhil Batra',   29, 'Male',   'AB+', 'Indore'),
+(20, 'Alka Trivedi',   34, 'Female', 'A-',  'Ujjain');
+
+-- 2. Camps
+INSERT INTO camps VALUES
+(1, 'Vijay Nagar Camp',    'Vijay Nagar, Indore',  '2024-01-15', 'Rotary Club'),
+(2, 'Bhopal City Drive',   'MP Nagar, Bhopal',     '2024-02-10', 'NSS Volunteers'),
+(3, 'Ujjain Mela Camp',    'Freeganj, Ujjain',     '2024-02-28', 'Lions Club'),
+(4, 'Gwalior Corp Drive',  'Lashkar, Gwalior',     '2024-03-12', 'Red Cross'),
+(5, 'IIT Indore Camp',     'Simrol, Indore',       '2024-04-05', 'IIT Students Union'),
+(6, 'Palasia Camp',        'Palasia, Indore',      '2024-05-20', 'Rotary Club'),
+(7, 'Bhopal Railway Camp', 'Habibganj, Bhopal',    '2024-06-08', 'Railway Employees'),
+(8, 'Ujjain Health Fair',  'Madhav Nagar, Ujjain', '2024-07-14', 'NSS Volunteers');
+
+-- 3. Donations
+INSERT INTO donations VALUES
+(1,  1,  1, '2024-01-15', 1),
+(2,  3,  1, '2024-01-15', 1),
+(3,  5,  1, '2024-01-15', 2),
+(4,  8,  1, '2024-01-15', 1),
+(5,  11, 1, '2024-01-15', 1),
+(6,  2,  2, '2024-02-10', 1),
+(7,  6,  2, '2024-02-10', 2),
+(8,  10, 2, '2024-02-10', 1),
+(9,  14, 2, '2024-02-10', 1),
+(10, 4,  3, '2024-02-28', 1),
+(11, 9,  3, '2024-02-28', 1),
+(12, 15, 3, '2024-02-28', 2),
+(13, 20, 3, '2024-02-28', 1),
+(14, 7,  4, '2024-03-12', 1),
+(15, 12, 4, '2024-03-12', 1),
+(16, 17, 4, '2024-03-12', 2),
+(17, 13, 5, '2024-04-05', 1),
+(18, 16, 5, '2024-04-05', 1),
+(19, 19, 5, '2024-04-05', 1),
+(20, 1,  5, '2024-04-05', 2),
+(21, 3,  6, '2024-05-20', 1),
+(22, 8,  6, '2024-05-20', 1),
+(23, 11, 6, '2024-05-20', 1),
+(24, 18, 6, '2024-05-20', 2),
+(25, 2,  7, '2024-06-08', 1),
+(26, 6,  7, '2024-06-08', 1),
+(27, 10, 7, '2024-06-08', 2),
+(28, 4,  8, '2024-07-14', 1),
+(29, 9,  8, '2024-07-14', 1),
+(30, 15, 8, '2024-07-14', 2);
+
+-- 4. Blood Requests
+INSERT INTO blood_requests VALUES
+(1,  'MY Hospital Indore',       'O+',  5, '2024-07-01', 'Fulfilled'),
+(2,  'Bombay Hospital Indore',   'A+',  3, '2024-07-03', 'Fulfilled'),
+(3,  'Choithram Hospital',       'B+',  4, '2024-07-05', 'Pending'),
+(4,  'AIIMS Bhopal',             'O-',  6, '2024-07-06', 'Pending'),
+(5,  'Hamidia Hospital',         'AB+', 2, '2024-07-08', 'Fulfilled'),
+(6,  'MY Hospital Indore',       'B-',  3, '2024-07-09', 'Pending'),
+(7,  'Bombay Hospital Indore',   'A-',  4, '2024-07-10', 'Pending'),
+(8,  'Ujjain District Hospital', 'O+',  7, '2024-07-11', 'Fulfilled'),
+(9,  'Choithram Hospital',       'AB-', 2, '2024-07-12', 'Pending'),
+(10, 'AIIMS Bhopal',             'A+',  5, '2024-07-13', 'Fulfilled'),
+(11, 'Gwalior Central Hospital', 'O+',  4, '2024-07-14', 'Pending'),
+(12, 'Hamidia Hospital',         'B+',  3, '2024-07-15', 'Pending'),
+(13, 'MY Hospital Indore',       'O-',  5, '2024-07-16', 'Pending'),
+(14, 'Ujjain District Hospital', 'A+',  3, '2024-07-17', 'Fulfilled'),
+(15, 'Gwalior Central Hospital', 'AB+', 2, '2024-07-18', 'Pending');
+
+-- 5. Blood Inventory
+INSERT INTO blood_inventory VALUES
+(1, 'O+',  45, '2024-07-20', '2024-07-15'),
+(2, 'O-',   4, '2024-07-19', '2024-07-15'),
+(3, 'A+',  30, '2024-07-25', '2024-07-15'),
+(4, 'A-',   6, '2024-07-18', '2024-07-15'),
+(5, 'B+',  18, '2024-07-22', '2024-07-15'),
+(6, 'B-',   3, '2024-07-19', '2024-07-15'),
+(7, 'AB+', 12, '2024-07-28', '2024-07-15'),
+(8, 'AB-',  2, '2024-07-17', '2024-07-15');
+
+USE BloodBankDB;
+SELECT 'donors' AS table_name, COUNT(*) AS row_count FROM donors UNION ALL
+SELECT 'camps',          COUNT(*) FROM camps UNION ALL
+SELECT 'donations',      COUNT(*) FROM donations UNION ALL
+SELECT 'blood_requests', COUNT(*) FROM blood_requests UNION ALL
+SELECT 'blood_inventory',COUNT(*) FROM blood_inventory;
+
+-- Q1 MOst donated blood type 
+select
+dn.blood_type,
+sum(d.units_donated)as total_units
+from donations d
+join donors dn ON d.donor_id=dn.donor_id
+group by dn.blood_type
+order by total_units DESC;
+
+-- Which blood type is donated the most?
+select 
+DATE_FORMAT(donation_date,'%y-%m')as MONTH,
+count(donation_id)as total_donations,
+sum(units_donated)as total_donations
+from Donations 
+group by DATE_FORMAT(donation_date,'%y-%m')
+order by month;
+
+-- Which donation camp performed the best 
+select 
+c.camp_name, 
+c.organizer,
+c.location,
+count(d.donation_id)as donors_attracted,
+sum(d.units_donated)as units_collected
+from camps c
+left join donations d on c.camp_id = d.camp_id 
+group by c.camp_name , c.organizer , c.location 
+order by units_collected desc ;
+
+-- Which blood types are in shortage right now?
+USE BloodBankDB;
+
+SELECT  
+    r.blood_type, 
+    SUM(r.units_requested) AS total_requested, 
+    COALESCE(i.units_available, 0) AS currently_in_stock, 
+    SUM(r.units_requested) - COALESCE(i.units_available, 0) AS shortage_units 
+FROM blood_requests r 
+LEFT JOIN blood_inventory i ON r.blood_type = i.blood_type 
+WHERE r.status = 'Pending' 
+GROUP BY r.blood_type, i.units_available 
+HAVING SUM(r.units_requested) > COALESCE(i.units_available, 0);
+
+-- Q5 Which hospitals are requesting the most blood?
+USE BloodBankDB;
+
+SELECT 
+    hospital_name,
+    blood_type,
+    COUNT(request_id)    AS total_requests,
+    SUM(units_requested) AS units_needed,
+    SUM(CASE WHEN status = 'Fulfilled' THEN 1 ELSE 0 END) AS fulfilled,
+    SUM(CASE WHEN status = 'Pending'   THEN 1 ELSE 0 END) AS pending
+FROM blood_requests
+GROUP BY hospital_name, blood_type
+ORDER BY units_needed DESC;
+
+-- Q6 which blood units are expiring within 7 days 
+USE BloodBankDB;
+
+SELECT 
+    blood_type,
+    units_available,
+    expiry_date,
+    DATEDIFF(expiry_date, CURDATE()) AS days_until_expiry
+FROM blood_inventory
+WHERE expiry_date <= DATE_ADD(CURDATE(), INTERVAL 7 DAY)
+ORDER BY days_until_expiry ASC;
 
