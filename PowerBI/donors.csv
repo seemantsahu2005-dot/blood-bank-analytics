@@ -1,0 +1,21 @@
+donor_id,donor_name,age,gender,blood_type,city
+1,"Rahul Sharma",28,Male,O+,Indore
+2,"Priya Verma",24,Female,A+,Bhopal
+3,"Amit Joshi",35,Male,B+,Indore
+4,"Sneha Patel",22,Female,AB+,Ujjain
+5,"Vikram Singh",30,Male,O-,Indore
+6,"Neha Gupta",27,Female,A-,Bhopal
+7,"Rohit Tiwari",32,Male,B-,Gwalior
+8,"Anjali Rao",26,Female,O+,Indore
+9,"Suresh Meena",40,Male,A+,Ujjain
+10,"Kavya Nair",23,Female,B+,Bhopal
+11,"Deepak Yadav",29,Male,O+,Indore
+12,"Ritu Mishra",31,Female,AB-,Gwalior
+13,"Arjun Pandey",25,Male,A+,Indore
+14,"Pooja Dubey",28,Female,O-,Bhopal
+15,"Manish Soni",36,Male,B+,Ujjain
+16,"Swati Chouhan",24,Female,A+,Indore
+17,"Kiran Rajput",33,Male,O+,Gwalior
+18,"Divya Saxena",27,Female,B-,Bhopal
+19,"Nikhil Batra",29,Male,AB+,Indore
+20,"Alka Trivedi",34,Female,A-,Ujjain
